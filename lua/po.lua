@@ -86,6 +86,11 @@
 --"     Just delete the bloody file!
 
 --" Only do this when not done yet for this buffer.
+if vim.b.did_po_mode_ftplugin == nil then
+	return
+end
+vim.b.did_po_mode_ftplugin = 1
+
 --if exists("b:did_po_mode_ftplugin")
 --   finish
 --endif
@@ -241,23 +246,28 @@ vim.keymap.set(
 --endif
 --inoremap <buffer> <unique> <Plug>InsertFuzzy <ESC>{vap:call <SID>InsertFuzzy()<CR>gv<ESC>}i
 --nnoremap <buffer> <unique> <Plug>InsertFuzzy {vap:call <SID>InsertFuzzy()<CR>gv<ESC>}
---
---fu! <SID>InsertFuzzy() range
---   let n = a:firstline
---   while n <= a:lastline
---      let line = getline(n)
---      if line =~ '^#,.*fuzzy'
---         return
---      elseif line =~ '^#,'
---         call setline(n, substitute(line, '#,','#, fuzzy,', ""))
---         return
---      elseif line =~ '^msgid'
---         call append(n-1, '#, fuzzy')
---         return
---      endif
---      let n = n + 1
---   endwhile
---endf
+
+-- TODO insert mode
+vim.keymap.set("n", "<LocalLeader>z", vim.fn.InsertFuzzy(), { buffer = true, desc = "Insert Fuzzy mark" })
+
+vim.cmd([[
+function! <SID>InsertFuzzy() range
+   let n = a:firstline
+   while n <= a:lastline
+      let line = getline(n)
+      if line =~ '^#,.*fuzzy'
+         return
+      elseif line =~ '^#,'
+         call setline(n, substitute(line, '#,','#, fuzzy,', ""))
+         return
+      elseif line =~ '^msgid'
+         call append(n-1, '#, fuzzy')
+         return
+      endif
+      let n = n + 1
+   endwhile
+endf
+]])
 --
 ----" Remove fuzzy description from the translation.
 --if !hasmapto('<Plug>RemoveFuzzy')
@@ -271,15 +281,20 @@ vim.keymap.set(
 --endif
 --inoremap <buffer> <unique> <Plug>RemoveFuzzy <ESC>{vap:call <SID>RemoveFuzzy()<CR>i
 --nnoremap <buffer> <unique> <Plug>RemoveFuzzy {vap:call <SID>RemoveFuzzy()<CR>
---
---fu! <SID>RemoveFuzzy()
---   let line = getline(".")
---   if line =~ '^#,\s*fuzzy$'
---      exe "normal! dd"
---   elseif line =~ '^#,\(.*,\)\=\s*fuzzy'
---      exe 's/,\s*fuzzy//'
---   endif
---endf
+
+-- TODO insert mode
+vim.keymap.set("n", "<LocalLeader>r", vim.fn.RemoveFuzzy(), { buffer = true, desc = "Remove Fuzzy mark" })
+
+vim.cmd([[
+function! <SID>RemoveFuzzy()
+   let line = getline(".")
+   if line =~ '^#,\s*fuzzy$'
+      exe "normal! dd"
+   elseif line =~ '^#,\(.*,\)\=\s*fuzzy'
+      exe 's/,\s*fuzzy//'
+   endif
+endf
+]])
 --
 ----" Show PO translation statistics. (Only available on UNIX computers for now.)
 --if has("unix")
@@ -308,6 +323,9 @@ vim.keymap.set(
 --   nnoremap <buffer> <unique> <Plug>MsgfmtTest :call <SID>Msgfmt('test')<CR>
 
 local function Msgfmt(action)
+	vim.b.comments = ""
+	vim.b.errorformat = [[%f:%l:\ %m]]
+	vim.b.makeprg = "msgfmt"
 	--local api = vim.api
 	--local current_line =  api.nvim_get_current_line()
 
