@@ -91,8 +91,6 @@ if vim.b.did_po_mode_ftplugin == nil then
 end
 vim.b.did_po_mode_ftplugin = 1
 
-vim.g.maplocalleader = "\\"
-
 --if exists("b:did_po_mode_ftplugin")
 --   finish
 --endif
@@ -120,14 +118,14 @@ vim.g.maplocalleader = "\\"
 --inoremap <buffer> <unique> <Plug>NextTransFwd <ESC>/^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR>z.f"a
 vim.keymap.set(
 	"i",
-	"<LocalLeader>m",
+	"<Leader>pn",
 	[[<ESC>/^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR>z.f"a]],
 	{ buffer = true, desc = "Next untranslated entry" }
 )
 --nnoremap <buffer> <unique> <Plug>NextTransFwd /^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR><C-L>z.
 vim.keymap.set(
 	"n",
-	"<LocalLeader>m",
+	"<Leader>pn",
 	[[/^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR><C-L>z.]],
 	{ buffer = true, desc = "Next untranslated entry" }
 )
@@ -136,14 +134,14 @@ vim.keymap.set(
 --inoremap <buffer> <unique> <Plug>NextTransBwd <ESC>{?^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR>z.f"a
 vim.keymap.set(
 	"i",
-	"<LocalLeader>r",
+	"<Leader>pr",
 	[[<ESC>{?^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR>z.f"a]],
 	{ buffer = true, desc = "Previous untranslated entry" }
 )
 --nnoremap <buffer> <unique> <Plug>NextTransBwd {?^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR><C-L>z.
 vim.keymap.set(
 	"n",
-	"<LocalLeader>r",
+	"<Leader>pr",
 	[[{?^msgstr\s*""\(\n\n\\|\%$\)<CR>:let @/=""<CR>:call histdel("/", -1)<CR><C-L>z.]],
 	{ buffer = true, desc = "Previous untranslated entry" }
 )
