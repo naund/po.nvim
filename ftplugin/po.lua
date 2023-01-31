@@ -91,6 +91,8 @@ if vim.b.did_po_mode_ftplugin == nil then
 end
 vim.b.did_po_mode_ftplugin = 1
 
+vim.g.maplocalleader = "\\"
+
 --if exists("b:did_po_mode_ftplugin")
 --   finish
 --endif

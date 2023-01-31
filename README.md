@@ -1,4 +1,5 @@
 This is a lua rewrite of [po.vim](http://www.vim.org/scripts/script.php?script_id=695)
+===============================
 
 This file is a Vim ftplugin for editing PO files (GNU gettext -- the GNU
 i18n and l10n system). It automates over a dozen frequent tasks that
@@ -18,11 +19,12 @@ Move to the next fuzzy translation            | <S-F5>     | \f
 Move to the previous fuzzy translation        | <S-F6>     | \b
 Label the translation fuzzy                   | <S-F7>     | \z
 Remove the fuzzy label                        | <S-F8>     | \r
-Show msgfmt statistics for the file(\*)        | <S-F11>    | \s
-Browse through msgfmt errors for the file(\*)  | <S-F12>    | \e
+Show msgfmt statistics for the file(\*)       | <S-F11>    | \s
+Browse through msgfmt errors for the file(\*) | <S-F12>    | \e
 Put the translator info in the header         | \t         | \t
 Put the lang. team info in the header         | \l         | \l
 ----------------------------------------------|------------|-------
+
 (\*) Only available on UNIX computers.
 
 
