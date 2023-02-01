@@ -85,10 +85,9 @@
 --" REMOVAL
 --"     Just delete the bloody file!
 
-print("starting po.nvim")
 --" Only do this when not done yet for this buffer.
 if vim.b.did_po_mode_ftplugin == nil then
-	print("did_po_mode_ftplugin != nil")
+	print("did_po_mode_ftp_plugin: ", vim.b.did_po_mode_ftplugin)
 	return
 end
 vim.b.did_po_mode_ftplugin = 1
