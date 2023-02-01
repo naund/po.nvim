@@ -247,9 +247,6 @@ vim.keymap.set(
 --inoremap <buffer> <unique> <Plug>InsertFuzzy <ESC>{vap:call <SID>InsertFuzzy()<CR>gv<ESC>}i
 --nnoremap <buffer> <unique> <Plug>InsertFuzzy {vap:call <SID>InsertFuzzy()<CR>gv<ESC>}
 
--- TODO insert mode
-vim.keymap.set("n", "<LocalLeader>z", vim.fn.InsertFuzzy(), { buffer = true, desc = "Insert Fuzzy mark" })
-
 vim.cmd([[
 function! <SID>InsertFuzzy() range
    let n = a:firstline
@@ -268,6 +265,9 @@ function! <SID>InsertFuzzy() range
    endwhile
 endf
 ]])
+
+-- TODO insert mode
+vim.keymap.set("n", "<LocalLeader>z", vim.fn.InsertFuzzy(), { buffer = true, desc = "Insert Fuzzy mark" })
 --
 ----" Remove fuzzy description from the translation.
 --if !hasmapto('<Plug>RemoveFuzzy')
@@ -282,9 +282,6 @@ endf
 --inoremap <buffer> <unique> <Plug>RemoveFuzzy <ESC>{vap:call <SID>RemoveFuzzy()<CR>i
 --nnoremap <buffer> <unique> <Plug>RemoveFuzzy {vap:call <SID>RemoveFuzzy()<CR>
 
--- TODO insert mode
-vim.keymap.set("n", "<LocalLeader>r", vim.fn.RemoveFuzzy(), { buffer = true, desc = "Remove Fuzzy mark" })
-
 vim.cmd([[
 function! <SID>RemoveFuzzy()
    let line = getline(".")
@@ -295,6 +292,9 @@ function! <SID>RemoveFuzzy()
    endif
 endf
 ]])
+
+-- TODO insert mode
+vim.keymap.set("n", "<LocalLeader>r", vim.fn.RemoveFuzzy(), { buffer = true, desc = "Remove Fuzzy mark" })
 --
 ----" Show PO translation statistics. (Only available on UNIX computers for now.)
 --if has("unix")
