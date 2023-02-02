@@ -248,7 +248,7 @@ vim.keymap.set(
 --nnoremap <buffer> <unique> <Plug>InsertFuzzy {vap:call <SID>InsertFuzzy()<CR>gv<ESC>}
 
 vim.cmd([[
-function! <SID>InsertFuzzy() range
+function! InsertFuzzy() range
    let n = a:firstline
    while n <= a:lastline
       let line = getline(n)
@@ -267,7 +267,9 @@ endf
 ]])
 
 -- TODO insert mode
-vim.keymap.set("n", "<LocalLeader>z", vim.fn.InsertFuzzy(), { buffer = true, desc = "Insert Fuzzy mark" })
+vim.keymap.set("n", "<LocalLeader>z", function()
+	vim.fn.InsertFuzzy()
+end, { buffer = true, desc = "Insert Fuzzy mark" })
 --
 ----" Remove fuzzy description from the translation.
 --if !hasmapto('<Plug>RemoveFuzzy')
@@ -283,7 +285,7 @@ vim.keymap.set("n", "<LocalLeader>z", vim.fn.InsertFuzzy(), { buffer = true, des
 --nnoremap <buffer> <unique> <Plug>RemoveFuzzy {vap:call <SID>RemoveFuzzy()<CR>
 
 vim.cmd([[
-function! <SID>RemoveFuzzy()
+function! RemoveFuzzy()
    let line = getline(".")
    if line =~ '^#,\s*fuzzy$'
       exe "normal! dd"
@@ -294,7 +296,9 @@ endf
 ]])
 
 -- TODO insert mode
-vim.keymap.set("n", "<LocalLeader>r", vim.fn.RemoveFuzzy(), { buffer = true, desc = "Remove Fuzzy mark" })
+vim.keymap.set("n", "<LocalLeader>r", function()
+	vim.fn.RemoveFuzzy()
+end, { buffer = true, desc = "Remove Fuzzy mark" })
 --
 ----" Show PO translation statistics. (Only available on UNIX computers for now.)
 --if has("unix")
@@ -425,13 +429,13 @@ end, { buffer = true, desc = "Browse Errors" })
 --
 ---- Write automagically PO-formatted time stamp every time the file is saved.
 --augroup PoFileTimestamp
---   au!
+--   au!zeit
 --   au BufWrite *.po,*.po.gz call <SID>PoFileTimestamp()
 --augroup END
 
-vim.apt.nvim_create_autocmd("BufWrite", {
+vim.api.nvim_create_autocmd("BufWrite", {
 	pattern = "*.po,*.po.gz",
-	group = "PoFileTimestamp",
+	--group = "PoFileTimestamp",
 	command = [[
   " Prepare for cleanup at the end of this function.
   let hist_search = histnr("/")
